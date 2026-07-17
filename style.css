@@ -1,0 +1,163 @@
+/* Emil Halseth — personal academic site.
+   Plain CSS, no build step. Palette: calm neutrals, one restrained blue accent.
+   Dark mode follows the OS via prefers-color-scheme. */
+
+:root {
+  --bg: #fdfdfb;
+  --text: #24292e;
+  --muted: #6a737d;
+  --accent: #2f6fb2;
+  --rule: #e6e3dc;
+  --card: #f6f5f1;
+  --max: 46rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #16181c;
+    --text: #d7dae0;
+    --muted: #8b939e;
+    --accent: #6ea3d8;
+    --rule: #2b2f36;
+    --card: #1d2025;
+  }
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 400 1.0625rem/1.65 Charter, "Bitstream Charter", Cambria, Georgia, serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+.site-header {
+  position: sticky;
+  top: 0;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--rule);
+}
+
+.site-header nav {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0.85rem 1.25rem;
+  display: flex;
+  gap: 1.5rem;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 0.9rem;
+}
+
+.site-header a { color: var(--muted); }
+.site-header a:hover { color: var(--accent); text-decoration: none; }
+
+main {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 1.25rem 4rem;
+}
+
+section { padding-top: 3rem; }
+
+h1 {
+  font-size: 2.1rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 0 0 0.25rem;
+}
+
+h2 {
+  font-size: 1.35rem;
+  font-weight: 600;
+  margin: 0 0 1rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+h3 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin: 1.75rem 0 0.5rem;
+}
+
+.hero {
+  display: flex;
+  gap: 2.5rem;
+  align-items: flex-start;
+  padding-top: 3.5rem;
+}
+
+.hero-text { flex: 1 1 auto; }
+
+.role {
+  margin: 0 0 1.5rem;
+  color: var(--muted);
+  font-size: 1.1rem;
+}
+
+.bio { margin: 0 0 1rem; }
+
+.hero-photo {
+  flex: 0 0 180px;
+}
+
+.hero-photo img {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid var(--rule);
+}
+
+/* Until a portrait exists, hide the broken-image box entirely. */
+.hero-photo.missing { display: none; }
+
+ul.papers, ul.affiliations {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+ul.papers li, ul.affiliations li { margin-bottom: 0.5rem; }
+
+ul.papers li.placeholder {
+  list-style: none;
+  margin-left: -1.2rem;
+  color: var(--muted);
+  background: var(--card);
+  border: 1px dashed var(--rule);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+}
+
+.button {
+  display: inline-block;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 0.95rem;
+  background: var(--accent);
+  color: #fff;
+  padding: 0.55rem 1.1rem;
+  border-radius: 8px;
+}
+
+.button:hover { text-decoration: none; filter: brightness(1.08); }
+
+footer {
+  border-top: 1px solid var(--rule);
+  color: var(--muted);
+  font-size: 0.85rem;
+  text-align: center;
+  padding: 1.5rem 1rem 2.5rem;
+}
+
+@media (max-width: 560px) {
+  .hero { flex-direction: column-reverse; gap: 1.5rem; }
+  h1 { font-size: 1.8rem; }
+}
