@@ -9,7 +9,7 @@
   --accent: #2f6fb2;
   --rule: #e6e3dc;
   --card: #f6f5f1;
-  --max: 46rem;
+  --max: 58rem;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -165,6 +165,31 @@ ul.papers li.placeholder {
 .cv-note {
   color: var(--muted);
   font-size: 0.9rem;
+}
+
+.papers details { margin-top: 0.3rem; }
+
+.papers summary {
+  cursor: pointer;
+  width: fit-content;
+  color: var(--accent);
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 0.85rem;
+  user-select: none;
+}
+
+.papers summary:hover { text-decoration: underline; }
+
+.papers details[open] summary { margin-bottom: 0.4rem; }
+
+.papers details p {
+  margin: 0;
+  padding: 0.8rem 1rem;
+  background: var(--card);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  color: var(--muted);
+  font-size: 0.95rem;
 }
 
 footer {
