@@ -156,7 +156,7 @@ ul.papers li.placeholder {
   margin-left: 0.5rem;
 }
 
-.coauthors {
+.coauthors, .venue {
   display: block;
   color: var(--muted);
   font-size: 0.95rem;
