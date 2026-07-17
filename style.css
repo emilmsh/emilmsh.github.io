@@ -2,23 +2,8 @@
    Plain CSS, no build step. Palette: calm neutrals, one restrained blue accent.
    Dark mode follows the OS via prefers-color-scheme. */
 
-/* Libertinus Serif — self-hosted (no CDN ships it). Regular + Italic + Semibold
-   cover every weight the page uses (body 400, <em> italic, headings 600). */
-@font-face {
-  font-family: "Libertinus Serif";
-  font-weight: 400; font-style: normal; font-display: optional;
-  src: url("assets/fonts/LibertinusSerif-Regular.woff2") format("woff2");
-}
-@font-face {
-  font-family: "Libertinus Serif";
-  font-weight: 400; font-style: italic; font-display: optional;
-  src: url("assets/fonts/LibertinusSerif-Italic.woff2") format("woff2");
-}
-@font-face {
-  font-family: "Libertinus Serif";
-  font-weight: 600; font-style: normal; font-display: optional;
-  src: url("assets/fonts/LibertinusSerif-Semibold.woff2") format("woff2");
-}
+/* Libertinus Serif @font-face rules live in assets/fonts.css (base64-embedded
+   so the face is ready at first paint — no font flash). */
 
 :root {
   --bg: #fdfdfb;
