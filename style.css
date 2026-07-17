@@ -149,6 +149,24 @@ ul.papers li.placeholder {
 
 .button:hover { text-decoration: none; filter: brightness(1.08); }
 
+.button.secondary {
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  margin-left: 0.5rem;
+}
+
+.coauthors {
+  display: block;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.cv-note {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
 footer {
   border-top: 1px solid var(--rule);
   color: var(--muted);
