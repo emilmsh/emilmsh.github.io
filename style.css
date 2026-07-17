@@ -2,6 +2,24 @@
    Plain CSS, no build step. Palette: calm neutrals, one restrained blue accent.
    Dark mode follows the OS via prefers-color-scheme. */
 
+/* Libertinus Serif — self-hosted (no CDN ships it). Regular + Italic + Semibold
+   cover every weight the page uses (body 400, <em> italic, headings 600). */
+@font-face {
+  font-family: "Libertinus Serif";
+  font-weight: 400; font-style: normal; font-display: swap;
+  src: url("assets/fonts/LibertinusSerif-Regular.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Libertinus Serif";
+  font-weight: 400; font-style: italic; font-display: swap;
+  src: url("assets/fonts/LibertinusSerif-Italic.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Libertinus Serif";
+  font-weight: 600; font-style: normal; font-display: swap;
+  src: url("assets/fonts/LibertinusSerif-Semibold.woff2") format("woff2");
+}
+
 :root {
   --bg: #fdfdfb;
   --text: #24292e;
@@ -31,7 +49,7 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--text);
-  font: 400 1.0625rem/1.65 Charter, "Bitstream Charter", Cambria, Georgia, serif;
+  font: 400 1.125rem/1.6 "Libertinus Serif", Charter, "Bitstream Charter", Cambria, Georgia, serif;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -149,11 +167,16 @@ ul.papers li.placeholder {
 
 .button:hover { text-decoration: none; filter: brightness(1.08); }
 
-.button.secondary {
-  background: transparent;
-  color: var(--accent);
-  border: 1px solid var(--accent);
-  margin-left: 0.5rem;
+/* Symmetric EN/NO CV downloads: two equal boxes side by side. */
+.cv-downloads {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.cv-downloads .button {
+  flex: 0 1 12rem;
+  text-align: center;
 }
 
 .coauthors, .venue {
