@@ -120,8 +120,22 @@ h3 {
   border: 1px solid var(--rule);
 }
 
-/* Until a portrait exists, hide the broken-image box entirely. */
-.hero-photo.missing { display: none; }
+/* Until a portrait exists, hide only the broken-image box — the social
+   links below it stay visible. */
+.hero-photo img.missing { display: none; }
+
+.hero-photo .social {
+  list-style: none;
+  margin: 0.9rem 0 0;
+  padding: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 0.92rem;
+}
+
+.hero-photo .social li { margin-bottom: 0.35rem; }
+
+.hero-photo .social a { color: var(--muted); }
+.hero-photo .social a:hover { color: var(--accent); text-decoration: none; }
 
 ul.papers, ul.affiliations {
   margin: 0;
