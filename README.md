@@ -8,8 +8,9 @@ Plain static HTML + CSS — **no build step, no dependencies**. Edit `index.html
 - `index.html` — the whole site (single page: about, research, CV, contact)
 - `style.css` — styling; light/dark follows the OS via `prefers-color-scheme`
 - `assets/portrait.jpg` — portrait photo (hidden automatically if absent)
-- `cv.pdf` — CV; planned: compiled from LaTeX sources by a GitHub Action so the
-  site always serves the latest CV
+- `cv.pdf` / `cv-norsk.pdf` — academic CV (English / Norwegian), compiled from the
+  `cv/akademisk-*` LaTeX sources in the sibling `Emil-Halseth-CV` repo via
+  `node scripts/build-cv.mjs` (see CLAUDE.md)
 - `.nojekyll` — tells Pages to serve files as-is (skip Jekyll)
 
 Preview locally: any static server, e.g. `npx http-server . -p 5320`.

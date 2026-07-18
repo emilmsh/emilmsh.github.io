@@ -10,12 +10,13 @@ import { tmpdir } from 'node:os'
 import { join, resolve } from 'node:path'
 
 const siteDir = resolve(import.meta.dirname, '..')
-const cvDir = resolve(siteDir, '..', 'Emil-Halseth-CV')
+// Academic sources live in the cv/ subfolder of the sibling CV repo.
+const cvDir = resolve(siteDir, '..', 'Emil-Halseth-CV', 'cv')
 const buildDir = mkdtempSync(join(tmpdir(), 'cv-build-'))
 
 const targets = [
-  { tex: 'Academic CV English.tex', pdf: 'Academic CV English.pdf', out: 'cv.pdf' },
-  { tex: 'Academic CV Norsk.tex', pdf: 'Academic CV Norsk.pdf', out: 'cv-norsk.pdf' }
+  { tex: 'akademisk-en.tex', pdf: 'akademisk-en.pdf', out: 'cv.pdf' },
+  { tex: 'akademisk-no.tex', pdf: 'akademisk-no.pdf', out: 'cv-norsk.pdf' }
 ]
 
 try {

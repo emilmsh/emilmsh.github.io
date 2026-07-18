@@ -14,13 +14,20 @@ sans stack.
 The CV PDFs served on the site (`cv.pdf`, `cv-norsk.pdf`) are **not** edited
 directly — they are compiled from LaTeX sources that live in a sibling repo:
 
-- **Source location:** `C:\Users\EmilMathiasStrømHals\Documents\GitHub\Emil-Halseth-CV`
+- **Source location:** `C:\Users\EmilMathiasStrømHals\Documents\GitHub\Emil-Halseth-CV\cv`
   (a git repo, remote `github.com/emilmsh/Emil-Halseth-CV`, synced with Overleaf).
-- **Site mapping:** `Academic CV English.tex` → `cv.pdf`;
-  `Academic CV Norsk.tex` → `cv-norsk.pdf`.
+  One consolidated source system: content is edited once per language in
+  `cv/innhold-en.tex` / `cv/innhold-no.tex`, shared by both the academic and the
+  personal/job-search builds.
+- **Only the academic version goes on the site.** Site mapping:
+  `cv/akademisk-en.tex` → `cv.pdf`; `cv/akademisk-no.tex` → `cv-norsk.pdf`
+  (the English one is the canonical default). The personal/job-search version
+  (`cv/personlig-*`) is **not** published here. The old root-level
+  `Academic CV English.tex` etc. are archived in the repo's `arkiv/` — do not
+  link to or build from them.
 - **Build:** run `node scripts/build-cv.mjs` from this repo. It runs `latexmk`
-  (requires TeX Live) in a temp dir and copies the two PDFs into the site root.
-  Then commit + push the site repo to deploy.
+  (requires TeX Live) in a temp dir over the `cv/` sources and copies the two
+  PDFs into the site root. Then commit + push the site repo to deploy.
 
 ## Standing permission (granted by Emil)
 
