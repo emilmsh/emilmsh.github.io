@@ -29,13 +29,7 @@
 
 * { box-sizing: border-box; }
 
-html {
-  scroll-behavior: smooth;
-  /* Libertinus Serif has a small x-height, so it renders visually smaller
-     than the system serifs. Scale the root up ~6% to compensate — every
-     rem-based size (type, layout width) grows proportionally. */
-  font-size: 109.375%;
-}
+html { scroll-behavior: smooth; }
 
 body {
   margin: 0;
