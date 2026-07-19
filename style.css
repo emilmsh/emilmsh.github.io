@@ -12,7 +12,8 @@
   --accent: #2f6fb2;
   --rule: #e6e3dc;
   --card: #f6f5f1;
-  --max: 58rem;
+  /* Pinned in px so the root font-size scaling doesn't widen the column. */
+  --max: 928px;
 }
 
 @media (prefers-color-scheme: dark) {
