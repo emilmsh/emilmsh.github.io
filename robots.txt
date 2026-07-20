@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://emilmsh.github.io/sitemap.xml
