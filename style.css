@@ -155,11 +155,24 @@ ul.papers li.placeholder {
   padding: 0.75rem 1rem;
 }
 
+/* Software list: the app logo stands in for the bullet, hanging in the
+   left margin with the entry text indented beside it. */
+ul.papers.software {
+  list-style: none;
+  padding-left: 0;
+}
+
+ul.papers.software li {
+  position: relative;
+  padding-left: 2.2rem;
+}
+
 .app-logo {
-  width: 1.3em;
-  height: 1.3em;
-  vertical-align: -0.28em;
-  margin-right: 0.1em;
+  position: absolute;
+  left: 0;
+  top: 0.12em;
+  width: 1.6em;
+  height: 1.6em;
 }
 
 .coauthors, .venue {
