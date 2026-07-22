@@ -170,9 +170,9 @@ ul.papers.software li {
 .app-logo {
   position: absolute;
   left: 0;
-  top: 0.12em;
-  width: 1.6em;
-  height: 1.6em;
+  top: 0.16em;
+  width: 1.2em;
+  height: 1.2em;
 }
 
 .coauthors, .venue {
