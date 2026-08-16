@@ -133,10 +133,27 @@ h3 {
   font-size: 0.92rem;
 }
 
-.hero-photo .social li { margin-bottom: 0.35rem; }
+.hero-photo .social li { margin-bottom: 0.4rem; }
 
-.hero-photo .social a { color: var(--muted); }
+.hero-photo .social a {
+  color: var(--muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+}
 .hero-photo .social a:hover { color: var(--accent); text-decoration: none; }
+
+/* The sprite itself is markup, not content — keep it out of the layout. */
+.icon-sprite { display: none; }
+
+/* Icons inherit the link colour, so they follow the hover and dark-mode
+   states without a second rule. */
+.icon {
+  width: 1.05em;
+  height: 1.05em;
+  flex: 0 0 auto;
+  fill: currentColor;
+}
 
 ul.papers, ul.affiliations {
   margin: 0;
