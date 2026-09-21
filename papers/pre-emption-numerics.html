@@ -94,7 +94,7 @@ table([&#x27;Execution&#x27;, &#x27;Recorded value&#x27;], [
     [&#x27;Python&#x27;, sys.version.split()[0]],
     [&#x27;Numerical packages&#x27;, &#x27;numpy 2.3.5; python-flint 0.9.0&#x27;],
     [&#x27;Compute time&#x27;, f&quot;{sum(t[&#x27;duration_seconds&#x27;] for t in tasks.values()):.1f} seconds&quot;],
-])</code></pre></details><div class="table-wrap"><table><thead><tr><th>Execution</th><th>Recorded value</th></tr></thead><tbody><tr><td>Completed (UTC)</td><td>2026-09-21T04:52:38.125926+00:00</td></tr><tr><td>Checks passed</td><td>22 / 22</td></tr><tr><td>Python</td><td>3.12.14</td></tr><tr><td>Numerical packages</td><td>numpy 2.3.5; python-flint 0.9.0</td></tr><tr><td>Compute time</td><td>161.3 seconds</td></tr></tbody></table></div><h2 id="2-participation-information-is-enough-for-probing">2. Participation information is enough for probing</h2>
+])</code></pre></details><div class="table-wrap"><table><thead><tr><th>Execution</th><th>Recorded value</th></tr></thead><tbody><tr><td>Completed (UTC)</td><td>2026-09-21T07:17:27.433358+00:00</td></tr><tr><td>Checks passed</td><td>22 / 22</td></tr><tr><td>Python</td><td>3.12.14</td></tr><tr><td>Numerical packages</td><td>numpy 2.3.5; python-flint 0.9.0</td></tr><tr><td>Compute time</td><td>262.2 seconds</td></tr></tbody></table></div><h2 id="2-participation-information-is-enough-for-probing">2. Participation information is enough for probing</h2>
 <p><strong>Main paper, Section 3.2 and Proposition 3.1.</strong> Values are uniform on [0,1]. Only the number of later buyers changes with the seller's state: 2 or 6. The seller's value is 0.4 in both states, the high-state probability is 0.5, the offer cost is 0.02, and the buyer's resolution benefit has support [0,0.1]. Seller resolution benefits are zero.</p>
 <p>The sufficient probing window contains 0.1. Thus differences in expected competition alone can support both accepted and rejected offers. The distribution of the buyer's resolution benefit is otherwise unspecified within the paper's maintained class. Consequently this example supplies sufficient conditions, not a numerical offer price or attempt rate.</p>
 <details class="code"><summary>Show Python code</summary><pre><code>participation = json.loads((RUN / &#x27;participation_only_exact.json&#x27;).read_text())[&#x27;participation&#x27;]
@@ -191,7 +191,7 @@ records([&#x27;participation_only_exact&#x27;])</code></pre></details><div class
 }
 </pre></details><h2 id="3-a-ban-can-raise-or-lower-welfare">3. A ban can raise or lower welfare</h2>
 <p><strong>Main paper, Table 4.1 and Appendix D.</strong> The two calibrations differ only in the common distribution of early and late buyer values. Both have mean 0.5. The first concentrates values near the mean; the second gives more weight to the upper tail. The equilibrium prices and the types making early offers change with the distribution.</p>
-<p>The welfare effect is <strong>avoided offer costs + improved allocation − forgone resolution gains</strong>. Negative values mean that banning pre-emption lowers welfare. These examples establish opposite rankings, not a general comparative-statics result. Their seller values differ across states, unlike the participation-only example above. Full primitives and convergence checks are in the expanded record.</p>
+<p>The welfare effect is <strong>avoided offer costs + improved allocation − forgone resolution gains</strong>. Negative values mean that banning pre-emption lowers welfare. These examples establish opposite rankings, not a general comparative-statics result. Their seller values differ across states, unlike the participation-only example above. Excluded late-buyer surplus per completed early sale divides the unconditional excluded-surplus numerator by the completed early-sale probability. These are point calculations; full primitives and convergence checks are in the expanded record.</p>
 <details class="code"><summary>Show Python code</summary><pre><code>raw = (RUN / &#x27;ban_welfare_examples_floating.stdout.txt&#x27;).read_text()
 cases = [raw.split(&#x27;SYMMETRIC\n&#x27;, 1)[1].split(&#x27;UPPER_TAIL\n&#x27;, 1)[0],
          raw.split(&#x27;UPPER_TAIL\n&#x27;, 1)[1]]
@@ -205,7 +205,11 @@ rows = [
     [&#x27;Probing price&#x27;, prices[0][0], prices[1][0]],
     [&#x27;Knockout price&#x27;, prices[0][1], prices[1][1]],
     [&#x27;Rejected attempt&#x27;, outcomes[0][1], outcomes[1][1]],
-    [&#x27;Early agreement&#x27;, outcomes[0][2], outcomes[1][2]],
+    [&#x27;Completed early-sale probability (denominator)&#x27;, outcomes[0][2], outcomes[1][2]],
+    [&#x27;Excluded late-buyer surplus (unconditional numerator)&#x27;,
+     welfare[0][&#x27;excluded_late_surplus&#x27;], welfare[1][&#x27;excluded_late_surplus&#x27;]],
+    [&#x27;Excluded late-buyer surplus per completed early sale&#x27;,
+     welfare[0][&#x27;excluded_per_completed_sale&#x27;], welfare[1][&#x27;excluded_per_completed_sale&#x27;]],
 ]
 for label, key in [(&#x27;Avoided offer costs&#x27;, &#x27;attempt_resources&#x27;),
                    (&#x27;Allocative gain&#x27;, &#x27;allocation_gain&#x27;),
@@ -214,7 +218,7 @@ for label, key in [(&#x27;Avoided offer costs&#x27;, &#x27;attempt_resources&#x2
     rows.append([label, welfare[0][key], welfare[1][key]])
 table([&#x27;Point calculation&#x27;, &#x27;Concentrated values&#x27;, &#x27;Upper-tail mixture&#x27;],
       [[row[0], f&#x27;{row[1]:.12f}&#x27;, f&#x27;{row[2]:.12f}&#x27;] for row in rows])
-records([&#x27;ban_welfare_examples_floating&#x27;])</code></pre></details><div class="table-wrap"><table><thead><tr><th>Point calculation</th><th>Concentrated values</th><th>Upper-tail mixture</th></tr></thead><tbody><tr><td>Probing price</td><td>0.510980593208</td><td>0.515613314494</td></tr><tr><td>Knockout price</td><td>0.554378791664</td><td>0.640626332049</td></tr><tr><td>Rejected attempt</td><td>0.056313655095</td><td>0.066739617301</td></tr><tr><td>Early agreement</td><td>0.154353208514</td><td>0.068388497142</td></tr><tr><td>Avoided offer costs</td><td>0.004213337272</td><td>0.002702562289</td></tr><tr><td>Allocative gain</td><td>0.003883522055</td><td>0.002757306596</td></tr><tr><td>Forgone resolution gains</td><td>0.011624510881</td><td>0.005156517170</td></tr><tr><td>Welfare effect of a ban</td><td>-0.003527651553</td><td>0.000303351715</td></tr></tbody></table></div><details class="record"><summary>Continuous common-F full-menu ban-welfare floating-point cross-check | floating_point_audit | pass</summary><p><code>code/audit_ban_welfare_examples.py</code></p><pre>
+records([&#x27;ban_welfare_examples_floating&#x27;])</code></pre></details><div class="table-wrap"><table><thead><tr><th>Point calculation</th><th>Concentrated values</th><th>Upper-tail mixture</th></tr></thead><tbody><tr><td>Probing price</td><td>0.510980593208</td><td>0.515613314494</td></tr><tr><td>Knockout price</td><td>0.554378791664</td><td>0.640626332049</td></tr><tr><td>Rejected attempt</td><td>0.056313655095</td><td>0.066739617301</td></tr><tr><td>Completed early-sale probability (denominator)</td><td>0.154353208514</td><td>0.068388497142</td></tr><tr><td>Excluded late-buyer surplus (unconditional numerator)</td><td>0.002946632683</td><td>0.002523097711</td></tr><tr><td>Excluded late-buyer surplus per completed early sale</td><td>0.019090193923</td><td>0.036893597842</td></tr><tr><td>Avoided offer costs</td><td>0.004213337272</td><td>0.002702562289</td></tr><tr><td>Allocative gain</td><td>0.003883522055</td><td>0.002757306596</td></tr><tr><td>Forgone resolution gains</td><td>0.011624510881</td><td>0.005156517170</td></tr><tr><td>Welfare effect of a ban</td><td>-0.003527651553</td><td>0.000303351715</td></tr></tbody></table></div><details class="record"><summary>Continuous common-F full-menu ban-welfare floating-point cross-check | floating_point_audit | pass</summary><p><code>code/audit_ban_welfare_examples.py</code></p><pre>
 SYMMETRIC
 components ((0.01, None, None), (0.99, 40, 40))
 mean 0.5
@@ -565,7 +569,35 @@ with localcontext() as context:
     generated_table = render(aligned)
 if generated_table.encode(&#x27;utf-8&#x27;) != (ROOT / &#x27;figures/aligned_certificate_tables.tex&#x27;).read_bytes():
     raise RuntimeError(&#x27;The distributed certificate tables differ from the fresh computation.&#x27;)
-print(&#x27;Tables OA5.2–OA5.3: regenerated exactly from the fresh certificate.&#x27;)</code></pre></details><details class="record"><summary>Aligned-composite full-menu interval certificate | interval_certificate | pass</summary><p><code>code/certify_aligned_composite_full_menu.py</code></p><pre>{
+print(&#x27;Tables OA5.2–OA5.3: regenerated exactly from the fresh certificate.&#x27;)
+
+from flint import arb, ctx
+from certify_aligned_composite_full_menu import interval_record
+ctx.dps = 60
+
+def stored_ball(record):
+    return arb(record[&#x27;arb&#x27;])
+
+early_mass = stored_ball(aligned[&#x27;observed_outcomes&#x27;][&#x27;pre_emption_success&#x27;])
+auction_mass = (stored_ball(aligned[&#x27;observed_outcomes&#x27;][&#x27;no_early_offer&#x27;])
+                + stored_ball(aligned[&#x27;observed_outcomes&#x27;][&#x27;attempt_rejected&#x27;])
+                - stored_ball(aligned[&#x27;equilibrium_no_sale&#x27;][&#x27;prior_weighted&#x27;]))
+early_mean = stored_ball(aligned[&#x27;conditional_price_moment&#x27;][&#x27;completed_pre_emption_mean&#x27;])
+auction_mean = stored_ball(aligned[&#x27;conditional_price_moment&#x27;][&#x27;completed_bidding_round_mean&#x27;])
+price_trace = [
+    (&#x27;Completed early-sale probability&#x27;, early_mass),
+    (&#x27;Early-price numerator&#x27;, early_mass * early_mean),
+    (&#x27;Early conditional mean price&#x27;, early_mean),
+    (&#x27;Completed bidding-round sale probability&#x27;, auction_mass),
+    (&#x27;Bidding-round price numerator&#x27;, auction_mass * auction_mean),
+    (&#x27;Bidding-round conditional mean price&#x27;, auction_mean),
+    (&#x27;Conditional mean-price difference&#x27;, stored_ball(aligned[&#x27;conditional_price_moment&#x27;][&#x27;difference&#x27;])),
+]
+with localcontext() as context:
+    context.prec = 100
+    price_rows = [[name, *[f&#x27;{value:f}&#x27; for value in bounds(interval_record(ball), 9)]]
+                  for name, ball in price_trace]
+table([&#x27;Conditional-price calculation&#x27;, &#x27;Certified lower bound&#x27;, &#x27;Certified upper bound&#x27;], price_rows)</code></pre></details><details class="record"><summary>Aligned-composite full-menu interval certificate | interval_certificate | pass</summary><p><code>code/certify_aligned_composite_full_menu.py</code></p><pre>{
   &quot;D1_endpoint_slacks&quot;: [
     {
       &quot;arb&quot;: &quot;[0.05593441418 +/- 2.27e-12]&quot;,
@@ -1253,7 +1285,7 @@ masses: waiting 0.716425624, knockout 0.283574376
 on-path urgent strict margin 0.020000000
 D_K(1) = 0.005706593 &gt;= 0: the top-value type (1, D_K(1)) is itself marginal, b_K^0 = 1.0
 C_L(1) - q* = 0.024293407 &gt; 0: belief on (1, D_K(1)) makes BOTH seller states reject every undercut p &lt; q*
-gates: (i) margin 0.080000000, (ii) margin 0.044293407
+gates: (i) margin 0.074293407, (ii) margin 0.044293407
   grid sup gain, p = q* - 1e-6, plan (0,0): -0.050000000 at (b, d) = (0.00000, 0.00000)
   grid sup gain, p = 0.55, plan (0,0): -0.050000000 at (b, d) = (0.00000, 0.00000)
   grid sup gain, overcut p = q* + .02, plan (1,1): -0.020000000 at (b, d) = (0.78187, 1.00000)
@@ -1281,10 +1313,19 @@ probing D1 deterrence: PASS
 knockout D1 deterrence: PASS
 top belief makes deviations weakly dearer: PASS
 </pre></details><pre class="result">Tables OA5.2–OA5.3: regenerated exactly from the fresh certificate.
-</pre><h2 id="5-disclosure-insurance-and-alternative-bargaining-protocols">5. Disclosure, insurance and alternative bargaining protocols</h2>
+</pre><div class="table-wrap"><table><thead><tr><th>Conditional-price calculation</th><th>Certified lower bound</th><th>Certified upper bound</th></tr></thead><tbody><tr><td>Completed early-sale probability</td><td>0.185851773</td><td>0.185851774</td></tr><tr><td>Early-price numerator</td><td>0.127603512</td><td>0.127603513</td></tr><tr><td>Early conditional mean price</td><td>0.686587543</td><td>0.686587544</td></tr><tr><td>Completed bidding-round sale probability</td><td>0.771480424</td><td>0.771480425</td></tr><tr><td>Bidding-round price numerator</td><td>0.442925192</td><td>0.442925193</td></tr><tr><td>Bidding-round conditional mean price</td><td>0.574123695</td><td>0.574123696</td></tr><tr><td>Conditional mean-price difference</td><td>0.112463847</td><td>0.112463848</td></tr></tbody></table></div><p>Each conditional mean divides its price numerator by the matching completed-sale probability. Waiting buyers and rejected probes enter the bidding-round denominator; no-sale histories are removed. The numerator enclosures above are products of the certified means and sale probabilities, so they can be slightly wider than the original integral enclosures. This untargeted calibration illustrates a selected conditional comparison, not an empirical estimate.</p>
+<h2 id="5-disclosure-insurance-and-alternative-bargaining-protocols">5. Disclosure, insurance and alternative bargaining protocols</h2>
 <p>The following checks accompany separate extensions; their assumptions are not imposed on the main model.</p>
 <p><strong>OA2: disclosure.</strong> The calculations examine verifiable participation information, including the opposite welfare rankings in Table OA2.1. They do not make deep preference parameters verifiable.</p>
-<details class="code"><summary>Show Python code</summary><pre><code>records([&#x27;demand_disclosure_floating&#x27;, &#x27;disclosure_welfare_examples_floating&#x27;])</code></pre></details><details class="record"><summary>Committed demand-disclosure audit | floating_point_audit | pass</summary><p><code>code/verify_continuous_demand_disclosure.py</code></p><pre>private prices: q_L=0.609031541923, q_H=0.829183938170
+<details class="code"><summary>Show Python code</summary><pre><code>records([&#x27;demand_disclosure_floating&#x27;, &#x27;disclosure_welfare_examples_floating&#x27;])
+import re
+disclosure_text = (RUN / &#x27;disclosure_welfare_examples_floating.stdout.txt&#x27;).read_text(encoding=&#x27;utf-8&#x27;)
+priors = re.findall(r&#x27;pi=([0-9.]+), n=&#x27;, disclosure_text)
+components = re.findall(r&#x27;state changed-sales values=\(([+-]?[0-9.]+), ([+-]?[0-9.]+)\)&#x27;, disclosure_text)
+if len(priors) != 2 or len(components) != 2:
+    raise RuntimeError(&#x27;Expected both disclosure-state decompositions.&#x27;)
+table([&#x27;High-state prior&#x27;, &#x27;Low-state sale-set effect&#x27;, &#x27;High-state sale-set effect&#x27;],
+      [[prior, low, high] for prior, (low, high) in zip(priors, components)])</code></pre></details><details class="record"><summary>Committed demand-disclosure audit | floating_point_audit | pass</summary><p><code>code/verify_continuous_demand_disclosure.py</code></p><pre>private prices: q_L=0.609031541923, q_H=0.829183938170
 disclosed prices: q_L=0.633695435821, q_H=0.829176788566
 disclosed conditional offer masses: M_L=0.155658947575, M_H=0.090236868640
 private incidence: attempt=0.059993929487, completed=0.046566704855, rejected=0.013427224631
@@ -1300,8 +1341,36 @@ continuous demand-disclosure audit: passed
   prices private=(0.525750222, 0.713846443), disclosed=(0.533664428, 0.710665919); private masses wait/probe/knockout=(0.621455550, 0.235716116, 0.142828335); disclosed L/H masses=(0.462179667, 0.306566480); state changed-sales values=(-0.000891410, -0.000554628); welfare private/disclosed=(+0.020792102, +0.022410373)
 kappa=0.0200, d_bar=1.2000, lambda=10.0000, ell=0.4000, pi=0.7750, n=(1,3), dS=0.0000: change=-0.000335617244, rejection saving=+0.001947193841, changed sales=-0.002282811085, completed 0.242586146554 -&gt; 0.341579446974, rejected=0.097359692054, margin=0.00348747
   prices private=(0.504758725, 0.713845089), disclosed=(0.533664428, 0.710665919); private masses wait/probe/knockout=(0.660054161, 0.125625409, 0.214320430); disclosed L/H masses=(0.462179667, 0.306566480); state changed-sales values=(-0.000675755, -0.001607057); welfare private/disclosed=(+0.021512287, +0.021176670)
-</pre></details><p><strong>OA3: risk aversion.</strong> The interval certificate verifies the binary heterogeneous-CARA calibration supporting Proposition OA3.1, including its equilibrium and D1 conditions over all buyer values and unused prices. The risk-aversion coefficient takes two values; the revised appendix makes no continuous-risk-aversion claim.</p>
-<details class="code"><summary>Show Python code</summary><pre><code>records([&#x27;binary_cara_interval&#x27;])</code></pre></details><details class="record"><summary>Binary heterogeneous-CARA probing interval certificate | interval_certificate | pass</summary><p><code>code/risk_aversion_strong_binary_cara_certificate.py</code></p><pre>BINARY PRIVATE-CARA REFINED PBE: ARB CERTIFICATE
+</pre></details><div class="table-wrap"><table><thead><tr><th>High-state prior</th><th>Low-state sale-set effect</th><th>High-state sale-set effect</th></tr></thead><tbody><tr><td>0.6500</td><td>-0.000891410</td><td>-0.000554628</td></tr><tr><td>0.7750</td><td>-0.000675755</td><td>-0.001607057</td></tr></tbody></table></div><p>These floating-point contributions include the state probabilities. They sum to the sale-set effect up to display rounding; the .001607 high-state loss at prior .775 is a prior-weighted contribution.</p>
+<p><strong>OA3: risk aversion.</strong> The interval certificate verifies the binary heterogeneous-CARA calibration supporting Proposition OA3.1, including its equilibrium and D1 conditions over all buyer values and unused prices. The risk-aversion coefficient takes two values; the revised appendix makes no continuous-risk-aversion claim.</p>
+<details class="code"><summary>Show Python code</summary><pre><code>records([&#x27;binary_cara_interval&#x27;])
+from generate_cara_certificate_table import DISPLAY_LABELS, parse_bounds, render as render_cara
+cara_text = (RUN / &#x27;binary_cara_interval.stdout.txt&#x27;).read_text(encoding=&#x27;utf-8&#x27;)
+cara_bounds = parse_bounds(cara_text)
+cara_rows = []
+with localcontext() as context:
+    context.prec = 100
+    for key, label in DISPLAY_LABELS:
+        places = 21 if &#x27;residual&#x27; in key else 9
+        cara_rows.append([label, *[f&#x27;{value:f}&#x27; for value in bounds(cara_bounds[key], places)]])
+table([&#x27;Binary-CARA certificate&#x27;, &#x27;Certified lower bound&#x27;, &#x27;Certified upper bound&#x27;], cara_rows)
+generated_cara_table = render_cara(cara_text)
+if generated_cara_table.encode(&#x27;utf-8&#x27;) != (ROOT / &#x27;figures/cara_certificate_table.tex&#x27;).read_bytes():
+    raise RuntimeError(&#x27;The distributed CARA table differs from the fresh certificate.&#x27;)
+print(&#x27;Binary-CARA table: regenerated exactly from the fresh certificate.&#x27;)
+(RUN / &#x27;binary_cara_bounds.json&#x27;).write_text(json.dumps({
+    &#x27;source_task&#x27;: &#x27;binary_cara_interval&#x27;,
+    &#x27;interval_encoding&#x27;: &#x27;Each lower/upper field retains the complete outward Arb ball, including printed uncertainty.&#x27;,
+    &#x27;bounds&#x27;: cara_bounds,
+}, indent=2) + &#x27;\n&#x27;, encoding=&#x27;utf-8&#x27;)
+
+certificate_ids = [&#x27;ban_welfare_examples_interval&#x27;, &#x27;aligned_composite_full_menu_interval&#x27;, &#x27;binary_cara_interval&#x27;]
+provenance = [{&#x27;task&#x27;: task_id, &#x27;source&#x27;: specs[task_id][&#x27;script&#x27;],
+               &#x27;source_sha256&#x27;: hashlib.sha256((ROOT / specs[task_id][&#x27;script&#x27;]).read_bytes()).hexdigest(),
+               &#x27;output_sha256&#x27;: hashlib.sha256((RUN / (task_id + &#x27;.stdout.txt&#x27;)).read_bytes()).hexdigest()}
+              for task_id in certificate_ids]
+display(HTML(&#x27;&lt;details&gt;&lt;summary&gt;Certificate source and output identifiers&lt;/summary&gt;&lt;pre&gt;&#x27;
+             + html.escape(json.dumps(provenance, indent=2)) + &#x27;&lt;/pre&gt;&lt;/details&gt;&#x27;))</code></pre></details><details class="record"><summary>Binary heterogeneous-CARA probing interval certificate | interval_certificate | pass</summary><p><code>code/risk_aversion_strong_binary_cara_certificate.py</code></p><pre>BINARY PRIVATE-CARA REFINED PBE: ARB CERTIFICATE
   alpha_L (exact): [0.37000000000000000000000000000000000000000000000000000000000000000000000000000000 +/- 9.92e-82]
   q: [0.655960451221776724309094715318339960114959440578928729228823432076608210301 +/- 5.79e-76]
   beta: [0.81169993034278 +/- 3.01e-15]
@@ -1334,7 +1403,28 @@ OUTCOME PROBABILITIES (equal curvature masses)
   no offer: [0.90584996517139 +/- 1.51e-15]
   rejection: [0.047075017414305 +/- 7.51e-16]
   agreement: [0.047075017414305 +/- 7.51e-16]
-</pre></details><p><strong>OA4: alternative protocols.</strong> Exact arithmetic checks the continued pre-auction bargaining example and its tail, cost and welfare conditions. A separate interval calculation checks post-bidding seller counteroffers with action linkage. These are distinct protocol extensions, with their own assumptions and equilibrium claims.</p>
+</pre></details><div class="table-wrap"><table><thead><tr><th>Binary-CARA certificate</th><th>Certified lower bound</th><th>Certified upper bound</th></tr></thead><tbody><tr><td>Price</td><td>0.655960451</td><td>0.655960452</td></tr><tr><td>High-risk-aversion value cutoff</td><td>0.811699930</td><td>0.811699931</td></tr><tr><td>High risk-aversion coefficient</td><td>2.788027979</td><td>2.788027981</td></tr><tr><td>Cutoff equation: lower-endpoint residual</td><td>-0.000000000000000365316</td><td>-0.000000000000000365315</td></tr><tr><td>Cutoff equation: upper-endpoint residual</td><td>0.000000000000000065903</td><td>0.000000000000000065904</td></tr><tr><td>Risk-aversion equation: lower-endpoint residual</td><td>-0.000000000022542000000</td><td>-0.000000000021458000000</td></tr><tr><td>Risk-aversion equation: upper-endpoint residual</td><td>0.000000000021443000000</td><td>0.000000000022557000000</td></tr><tr><td>Risk-aversion equation derivative</td><td>0.216717793</td><td>0.216717807</td></tr><tr><td>Cutoff equation derivative</td><td>0.107804921</td><td>0.107804922</td></tr><tr><td>Global match-value single-crossing margin</td><td>0.257441713</td><td>0.257441714</td></tr><tr><td>Low-curvature waiter-order margin</td><td>0.289026412</td><td>0.289026413</td></tr><tr><td>High-curvature waiter derivative numerator upper bound</td><td>-0.173156800</td><td>-0.173156799</td></tr><tr><td>Minimum normalized cross-curvature undercut gap</td><td>7.824085724</td><td>7.824085725</td></tr><tr><td>Low-state top-value rejection margin</td><td>0.010706215</td><td>0.010706216</td></tr><tr><td>High-state on-path rejection margin</td><td>0.195440211</td><td>0.195440212</td></tr><tr><td>High-price cutoff</td><td>0.791626453</td><td>0.791626467</td></tr><tr><td>High-price rejection margin</td><td>0.083373533</td><td>0.083373547</td></tr><tr><td>Low-curvature knockout moment gap</td><td>0.053239653</td><td>0.053239654</td></tr><tr><td>High-curvature knockout moment gap</td><td>2.378478719</td><td>2.378478881</td></tr></tbody></table></div><pre class="result">Binary-CARA table: regenerated exactly from the fresh certificate.
+</pre><details><summary>Certificate source and output identifiers</summary><pre>[
+  {
+    &quot;task&quot;: &quot;ban_welfare_examples_interval&quot;,
+    &quot;source&quot;: &quot;code/certify_ban_welfare_examples.py&quot;,
+    &quot;source_sha256&quot;: &quot;92617dd8b41765269a0124137670b399ed8f2d3c776355c63e2b6c948d835c88&quot;,
+    &quot;output_sha256&quot;: &quot;e8ccb783b0f9a57a47dde46aa523ff0cca3bdecf90cfac9c1d94e281a9934aaf&quot;
+  },
+  {
+    &quot;task&quot;: &quot;aligned_composite_full_menu_interval&quot;,
+    &quot;source&quot;: &quot;code/certify_aligned_composite_full_menu.py&quot;,
+    &quot;source_sha256&quot;: &quot;625aee375684cceb97beaa70bd04648bc68f58c5bcebd521fa5c177a231830e4&quot;,
+    &quot;output_sha256&quot;: &quot;321b09f84cd3354b2eef5c9cfbb4bcb529f0b7aeaba87f047d0de1d65e5d45e6&quot;
+  },
+  {
+    &quot;task&quot;: &quot;binary_cara_interval&quot;,
+    &quot;source&quot;: &quot;code/risk_aversion_strong_binary_cara_certificate.py&quot;,
+    &quot;source_sha256&quot;: &quot;7c1b60c2aa1038480ae45be98231cfb52c4e78a146deb42d516efc7c0c7fda32&quot;,
+    &quot;output_sha256&quot;: &quot;3e2a875539e6d3e38fe8f2ec7a38aa397647392b58af666b3bdb6af22ee5822f&quot;
+  }
+]</pre></details><p>The price solves its equation analytically. Strict sign brackets and positive derivatives enclose the other two root coordinates. The global comparisons combine analytical reductions with 512 interval subdivisions over the relevant value and undercut domains. The normalized undercut gap compares the two curvature classes' gain expressions divided by the price reduction, including its zero limit. Full residuals and margins remain in the expanded calculation record. Run All writes the parsed outward bounds to <code>binary_cara_bounds.json</code> in the same fresh results folder as the other machine-readable certificates; the notebook remains the only download. The collapsed source and output identifiers distinguish the exact calculation records.</p>
+<p><strong>OA4: alternative protocols.</strong> Exact arithmetic checks the continued pre-auction bargaining example and its tail, cost and welfare conditions. A separate interval calculation checks post-bidding seller counteroffers with action linkage. These are distinct protocol extensions, with their own assumptions and equilibrium claims.</p>
 <details class="code"><summary>Show Python code</summary><pre><code>records([&#x27;preemption_bargaining_equilibrium_exact&#x27;, &#x27;preemption_bargaining_tail_exact&#x27;,
          &#x27;preemption_bargaining_cost_region_exact&#x27;, &#x27;patient_initiator_welfare_exact&#x27;,
          &#x27;full_linkage_counteroffer_interval&#x27;])</code></pre></details><details class="record"><summary>Continued pre-emption-stage bargaining equilibrium audit | exact_arithmetic_audit | pass</summary><p><code>code/audit_unit_urgency_renegotiation_independent.py</code></p><pre>INDEPENDENT UNIT-URGENCY AUDIT: PASS
@@ -1426,10 +1516,10 @@ table([&#x27;Reproduced figure data/source&#x27;], [[path] for task in specs.val
                                         for path in task[&#x27;outputs&#x27;]])</code></pre></details><details class="record"><summary>Maintained theory-figure round-trip check | figure_roundtrip | pass</summary><p><code>code/generate_theory_figure_data.py, code/generate_probing_only_regime_figure.py</code></p><pre>THEORY FIGURE DATA: PASS
   probing strip and three-outcome example reproduced
   renegotiation type thresholds and q-r-p path reproduced
-  wrote six deterministic files under C:\Users\EmilMathiasStrømHals\Documents\GitHub\Pre-emptive-bids\code\reproduction_outputs\workbook-20260921T044955.795554Z\maintained_theory_figures_roundtrip_workspace\figures
+  wrote six deterministic files under C:\Users\EmilMathiasStrømHals\Documents\GitHub\Pre-emptive-bids\code\reproduction_outputs\workbook-20260921T071303.620407Z\maintained_theory_figures_roundtrip_workspace\figures
 
 ALIGNED-COMPOSITE PROBING FIGURE: PASS
-  wrote C:\Users\EmilMathiasStrømHals\Documents\GitHub\Pre-emptive-bids\code\reproduction_outputs\workbook-20260921T044955.795554Z\maintained_theory_figures_roundtrip_workspace\figures\probing_only_regime_figure.tex
+  wrote C:\Users\EmilMathiasStrømHals\Documents\GitHub\Pre-emptive-bids\code\reproduction_outputs\workbook-20260921T071303.620407Z\maintained_theory_figures_roundtrip_workspace\figures\probing_only_regime_figure.tex
   no-early-offer boundary = 0.020000000
   probing theorem upper = 0.0928219067
   no numerical continuation row generated
@@ -1948,7 +2038,7 @@ D1 MARGINS
   }
 }
 </pre></details><pre class="result">Coverage complete: all 22 executed checks have an explanatory home above.
-Fresh results: code/reproduction_outputs/workbook-20260921T044955.795554Z
+Fresh results: code/reproduction_outputs/workbook-20260921T071303.620407Z
 </pre><h2 id="8-inspect-or-extend-the-evidence">8. Inspect or extend the evidence</h2>
 <p>The downloadable notebook contains readable Python source cells, grouped with the calculations they support. Shared routines appear once and are linked from later uses. Long source files are split at Python definitions. Figure sources are regenerated and checked against recorded hashes, so their raw files need not be included in the download. Existing claim identifiers and some script docstrings retain the long manuscript's labels; the section references in this workbook refer to the revised pair.</p>
 <p>To vary a calibration, edit its Python source cells in the notebook, rerun those cells, and rerun the calculation. A changed calibration may fail the maintained equilibrium or refinement conditions. New outputs should be interpreted using those conditions rather than compared only by their welfare sign. This workbook reproduces the paper's internal numerical exercises; empirical figures quoted from other studies remain evidence from those cited sources.</p>
