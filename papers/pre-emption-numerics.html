@@ -94,7 +94,7 @@ table([&#x27;Execution&#x27;, &#x27;Recorded value&#x27;], [
     [&#x27;Python&#x27;, sys.version.split()[0]],
     [&#x27;Numerical packages&#x27;, &#x27;numpy 2.3.5; python-flint 0.9.0&#x27;],
     [&#x27;Compute time&#x27;, f&quot;{sum(t[&#x27;duration_seconds&#x27;] for t in tasks.values()):.1f} seconds&quot;],
-])</code></pre></details><div class="table-wrap"><table><thead><tr><th>Execution</th><th>Recorded value</th></tr></thead><tbody><tr><td>Completed (UTC)</td><td>2026-09-20T11:45:47.614243+00:00</td></tr><tr><td>Checks passed</td><td>22 / 22</td></tr><tr><td>Python</td><td>3.12.14</td></tr><tr><td>Numerical packages</td><td>numpy 2.3.5; python-flint 0.9.0</td></tr><tr><td>Compute time</td><td>105.4 seconds</td></tr></tbody></table></div><h2 id="2-participation-information-is-enough-for-probing">2. Participation information is enough for probing</h2>
+])</code></pre></details><div class="table-wrap"><table><thead><tr><th>Execution</th><th>Recorded value</th></tr></thead><tbody><tr><td>Completed (UTC)</td><td>2026-09-21T04:25:07.011881+00:00</td></tr><tr><td>Checks passed</td><td>22 / 22</td></tr><tr><td>Python</td><td>3.12.14</td></tr><tr><td>Numerical packages</td><td>numpy 2.3.5; python-flint 0.9.0</td></tr><tr><td>Compute time</td><td>174.0 seconds</td></tr></tbody></table></div><h2 id="2-participation-information-is-enough-for-probing">2. Participation information is enough for probing</h2>
 <p><strong>Main paper, Section 3.2 and Proposition 3.1.</strong> Values are uniform on [0,1]. Only the number of later buyers changes with the seller's state: 2 or 6. The seller's value is 0.4 in both states, the high-state probability is 0.5, the offer cost is 0.02, and the buyer's resolution benefit has support [0,0.1]. Seller resolution benefits are zero.</p>
 <p>The sufficient probing window contains 0.1. Thus differences in expected competition alone can support both accepted and rejected offers. The distribution of the buyer's resolution benefit is otherwise unspecified within the paper's maintained class. Consequently this example supplies sufficient conditions, not a numerical offer price or attempt rate.</p>
 <details class="code"><summary>Show Python code</summary><pre><code>participation = json.loads((RUN / &#x27;participation_only_exact.json&#x27;).read_text())[&#x27;participation&#x27;]
@@ -1426,10 +1426,10 @@ table([&#x27;Reproduced figure data/source&#x27;], [[path] for task in specs.val
                                         for path in task[&#x27;outputs&#x27;]])</code></pre></details><details class="record"><summary>Maintained theory-figure round-trip check | figure_roundtrip | pass</summary><p><code>code/generate_theory_figure_data.py, code/generate_probing_only_regime_figure.py</code></p><pre>THEORY FIGURE DATA: PASS
   probing strip and three-outcome example reproduced
   renegotiation type thresholds and q-r-p path reproduced
-  wrote six deterministic files under C:\Users\EmilMathiasStrømHals\Documents\GitHub\Pre-emptive-bids\code\reproduction_outputs\workbook-20260920T114401.634317Z\maintained_theory_figures_roundtrip_workspace\figures
+  wrote six deterministic files under C:\Users\EmilMathiasStrømHals\Documents\GitHub\Pre-emptive-bids\code\reproduction_outputs\workbook-20260921T042211.952018Z\maintained_theory_figures_roundtrip_workspace\figures
 
 ALIGNED-COMPOSITE PROBING FIGURE: PASS
-  wrote C:\Users\EmilMathiasStrømHals\Documents\GitHub\Pre-emptive-bids\code\reproduction_outputs\workbook-20260920T114401.634317Z\maintained_theory_figures_roundtrip_workspace\figures\probing_only_regime_figure.tex
+  wrote C:\Users\EmilMathiasStrømHals\Documents\GitHub\Pre-emptive-bids\code\reproduction_outputs\workbook-20260921T042211.952018Z\maintained_theory_figures_roundtrip_workspace\figures\probing_only_regime_figure.tex
   no-early-offer boundary = 0.020000000
   probing theorem upper = 0.0928219067
   no numerical continuation row generated
@@ -1948,7 +1948,7 @@ D1 MARGINS
   }
 }
 </pre></details><pre class="result">Coverage complete: all 22 executed checks have an explanatory home above.
-Fresh results: code/reproduction_outputs/workbook-20260920T114401.634317Z
+Fresh results: code/reproduction_outputs/workbook-20260921T042211.952018Z
 </pre><h2 id="8-inspect-or-extend-the-evidence">8. Inspect or extend the evidence</h2>
 <p>The downloadable notebook contains readable Python source cells, grouped with the calculations they support. Shared routines appear once and are linked from later uses. Long source files are split at Python definitions. Figure sources are regenerated and checked against recorded hashes, so their raw files need not be included in the download. Existing claim identifiers and some script docstrings retain the long manuscript's labels; the section references in this workbook refer to the revised pair.</p>
 <p>To vary a calibration, edit its Python source cells in the notebook, rerun those cells, and rerun the calculation. A changed calibration may fail the maintained equilibrium or refinement conditions. New outputs should be interpreted using those conditions rather than compared only by their welfare sign. This workbook reproduces the paper's internal numerical exercises; empirical figures quoted from other studies remain evidence from those cited sources.</p>
