@@ -2,10 +2,13 @@
    Plain CSS, no build step. Palette: calm neutrals, one restrained blue accent.
    Dark mode follows the OS via prefers-color-scheme. */
 
-/* Libertinus Serif and Libertinus Sans @font-face rules live in assets/fonts.css
-   (base64-embedded so the faces are ready at first paint — no font flash). */
+/* Libertinus Sans and Libertinus Serif @font-face rules live in assets/fonts.css
+   (base64-embedded so the faces are ready at first paint — no font flash).
+   Sans carries the body text; Serif is reserved for headings. */
 
 :root {
+  --sans: "Libertinus Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --serif: "Libertinus Serif", Charter, "Bitstream Charter", Cambria, Georgia, serif;
   --bg: #fdfdfb;
   --text: #24292e;
   --muted: #6a737d;
@@ -35,7 +38,7 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--text);
-  font: 400 1.125rem/1.6 "Libertinus Serif", Charter, "Bitstream Charter", Cambria, Georgia, serif;
+  font: 400 1.125rem/1.6 var(--sans);
   -webkit-font-smoothing: antialiased;
 }
 
@@ -56,7 +59,6 @@ a:hover { text-decoration: underline; }
   padding: 0.85rem 1.25rem;
   display: flex;
   gap: 1.5rem;
-  font-family: "Libertinus Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
   font-size: 0.9rem;
 }
 
@@ -70,6 +72,8 @@ main {
 }
 
 section { padding-top: 3rem; }
+
+h1, h2, h3 { font-family: var(--serif); }
 
 h1 {
   font-size: 2.1rem;
@@ -129,7 +133,6 @@ h3 {
   list-style: none;
   margin: 0.9rem 0 0;
   padding: 0;
-  font-family: "Libertinus Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
   font-size: 0.92rem;
 }
 
@@ -205,7 +208,6 @@ ul.papers.software li {
   flex-wrap: wrap;
   gap: 0.4rem;
   margin-top: 0.35rem;
-  font-family: "Libertinus Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
   font-size: 0.8rem;
   line-height: 1.2;
 }
@@ -233,7 +235,6 @@ ul.papers.software li {
   cursor: pointer;
   width: fit-content;
   color: var(--accent);
-  font-family: "Libertinus Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
   font-size: 0.85rem;
   user-select: none;
 }

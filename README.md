@@ -21,7 +21,7 @@ Plain static HTML + CSS — **no build step, no dependencies**. Edit, push to
 - `cv.pdf` / `cv-norsk.pdf` — academic CV (English / Norwegian), compiled from
   the `cv/akademisk-*` LaTeX sources in the sibling `Emil-Halseth-CV` repo via
   `node scripts/build-cv.mjs` (see CLAUDE.md)
-- `assets/fonts.css` — Libertinus Serif and Libertinus Sans embedded as base64
+- `assets/fonts.css` — Libertinus Sans and Libertinus Serif embedded as base64
   data URIs (loaded before `style.css` so the faces are ready at first paint).
   Regenerate with `python scripts/build-fonts.py` (reads the OTFs from TeX
   Live). Treat it as a binary asset; all editable styling is in `style.css`.
