@@ -21,13 +21,15 @@ Plain static HTML + CSS — **no build step, no dependencies**. Edit, push to
 - `cv.pdf` / `cv-norsk.pdf` — academic CV (English / Norwegian), compiled from
   the `cv/akademisk-*` LaTeX sources in the sibling `Emil-Halseth-CV` repo via
   `node scripts/build-cv.mjs` (see CLAUDE.md)
-- `assets/fonts.css` — Libertinus Serif embedded as base64 data URIs (loaded
-  before `style.css` so the face is ready at first paint). Treat it as a
-  binary asset; all editable styling is in `style.css`.
+- `assets/fonts.css` — Libertinus Serif and Libertinus Sans embedded as base64
+  data URIs (loaded before `style.css` so the faces are ready at first paint).
+  Regenerate with `python scripts/build-fonts.py` (reads the OTFs from TeX
+  Live). Treat it as a binary asset; all editable styling is in `style.css`.
 
 ## Plumbing (rarely touched)
 
 - `scripts/build-cv.mjs` — the CV build script
+- `scripts/build-fonts.py` — regenerates `assets/fonts.css` from the Libertinus OTFs
 - `robots.txt` / `sitemap.xml` — search-engine hints
 - `.nojekyll` — tells Pages to serve files as-is (skip Jekyll)
 

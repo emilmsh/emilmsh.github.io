@@ -4,10 +4,11 @@ Emil Halseth's personal academic site. Plain static HTML + CSS, no build step,
 served by GitHub Pages at <https://emilmsh.github.io>. See `README.md` for the
 file layout. Edit `index.html` / `style.css`, push to `master`, Pages redeploys.
 
-Typography: body + headings are set in **Libertinus Serif**, embedded as base64
-data URIs in `assets/fonts.css` (loaded before `style.css`) so the face is ready
-at first paint — no font flash. Nav, buttons, and small labels stay on the system
-sans stack.
+Typography: body + headings are set in **Libertinus Serif**; nav, buttons, and
+small labels in **Libertinus Sans**. Both are embedded as base64 data URIs in
+`assets/fonts.css` (loaded before `style.css`) so the faces are ready at first
+paint — no font flash. Regenerate that file with `python scripts/build-fonts.py`
+(reads the OTFs from TeX Live via `kpsewhich`).
 
 ## CV sources and build
 
